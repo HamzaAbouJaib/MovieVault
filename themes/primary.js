@@ -5,5 +5,5 @@ export const primaryTheme = {
 
 export const primaryStyles = {
   text: { color: primaryTheme.text },
-  background: { backgorundColor: primaryTheme.background },
+  background: { backgroundColor: primaryTheme.background },
 };

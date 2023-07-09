@@ -1,9 +1,10 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import {
   Bars3BottomLeftIcon,
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
+import TrendingMoviesList from "../components/TrendingMoviesList";
 
 export default HomeScreen = () => {
   return (
@@ -15,6 +16,15 @@ export default HomeScreen = () => {
         </Text>
         <MagnifyingGlassIcon color={"white"} size={25} strokeWidth={1.7} />
       </SafeAreaView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: 10,
+          paddingTop: 20,
+        }}
+      >
+        <TrendingMoviesList />
+      </ScrollView>
     </View>
   );
 };

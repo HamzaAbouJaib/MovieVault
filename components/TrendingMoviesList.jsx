@@ -34,7 +34,7 @@ export default TrendingMoviesList = () => {
       />
       <Pagination
         containerStyle={{ marginTop: -16 }}
-        dotsLength={trendingMovies.length + 1}
+        dotsLength={trendingMovies.length}
         activeDotIndex={activeDotIndex}
         dotStyle={{
           width: 8,

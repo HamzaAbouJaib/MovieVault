@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { View, Text, Image, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
+import { LinearGradient } from "expo-linear-gradient";
+import { PlayIcon } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
+import { image500 } from "../api/movies";
 
 const { width, height } = Dimensions.get("window");
 
-export default TrendingMoviesList = () => {
-  const [trendingMovies, setTrendingMovies] = useState([1, 2, 3, 4]);
+export default TrendingMoviesList = ({ movies }) => {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
 
   return (
@@ -15,16 +23,63 @@ export default TrendingMoviesList = () => {
         Now Trending
       </Text>
       <Carousel
-        data={trendingMovies}
-        renderItem={({ item }) => (
-          <View style={{ height: height * 0.3 }}>
-            <Image
-              source={require("../assets/testImages/moviePoster1.png")}
-              style={{ width: width * 0.95 }}
-              className="overflow-hidden"
-            />
-          </View>
-        )}
+        data={movies}
+        renderItem={({ item }) => {
+          return (
+            <View style={{ height: height * 0.3 }}>
+              <Image
+                source={{
+                  uri: image500(item.backdrop_path),
+                }}
+                style={{ width: width * 0.95, height: height * 0.3 }}
+                resizeMode="cover"
+                className="overflow-hidden"
+              />
+              <LinearGradient
+                // Button Linear Gradient
+                colors={[
+                  "transparent",
+                  "rgba(24,24,27,0.7)",
+                  "rgba(24,24,27,0.9)",
+                  "rgba(24,24,27,1)",
+                ]}
+                style={{ width, height: height * 0.3 }}
+                start={{ x: 0.5, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+                className="absolute"
+              />
+              <View className="absolute bottom-0 mb-4 ml-5 z-20">
+                <View>
+                  <Text
+                    className="text-white text-lg font-semibold leading-5"
+                    style={{ width: width * 0.6 }}
+                  >
+                    {item.title}
+                  </Text>
+                  <Text
+                    className="text-neutral-500 font-semibold"
+                    style={{ fontSize: 12.5 }}
+                  >
+                    {item.release_date?.split("-")[0]} • {item.genres[0].name} •{" "}
+                    {item.runtime} min
+                  </Text>
+                </View>
+              </View>
+              <TouchableWithoutFeedback>
+                <View
+                  className="absolute right-0 bottom-0 mr-6 rounded-md mb-5 justify-center items-center"
+                  style={{
+                    width: 40,
+                    height: 40,
+                    ...primaryStyles.background,
+                  }}
+                >
+                  <PlayIcon color={"white"} strokeWidth={1.8} size={23} />
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+          );
+        }}
         firstItem={0}
         inactiveSlideOpacity={0.6}
         sliderWidth={width}
@@ -34,7 +89,7 @@ export default TrendingMoviesList = () => {
       />
       <Pagination
         containerStyle={{ marginTop: -16 }}
-        dotsLength={trendingMovies.length}
+        dotsLength={movies.length}
         activeDotIndex={activeDotIndex}
         dotStyle={{
           width: 8,

@@ -6,14 +6,26 @@ import {
 import { primaryStyles } from "../themes/primary";
 import TrendingMoviesList from "../components/TrendingMoviesList";
 import { useEffect, useState } from "react";
-import { fetchMovieDetails, fetchTrendingMovies } from "../api/movies";
+import {
+  fetchMovieDetails,
+  fetchTrendingMovies,
+  fetchUpcomingMovies,
+} from "../api/movies";
+import PosterList from "../components/PosterList";
 
 export default HomeScreen = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
 
   useEffect(() => {
     getTrendingMovies();
+    getUpcomingMovies();
   }, []);
+
+  async function getUpcomingMovies() {
+    const data = await fetchUpcomingMovies();
+    if (data && data.results) setUpcomingMovies(data.results);
+  }
 
   async function getTrendingMovies() {
     setTrendingMovies([]);
@@ -46,6 +58,7 @@ export default HomeScreen = () => {
         }}
       >
         <TrendingMoviesList movies={trendingMovies} />
+        <PosterList title="Upcoming Movies" data={upcomingMovies} />
       </ScrollView>
     </View>
   );

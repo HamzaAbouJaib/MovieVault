@@ -5,8 +5,30 @@ import {
 } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
 import TrendingMoviesList from "../components/TrendingMoviesList";
+import { useEffect, useState } from "react";
+import { fetchMovieDetails, fetchTrendingMovies } from "../api/movies";
 
 export default HomeScreen = () => {
+  const [trendingMovies, setTrendingMovies] = useState([]);
+
+  useEffect(() => {
+    getTrendingMovies();
+  }, []);
+
+  async function getTrendingMovies() {
+    setTrendingMovies([]);
+    const data = await fetchTrendingMovies();
+    if (data && data.results) {
+      const length = data.results.length > 9 ? 8 : data.results.length;
+      const movies = [];
+      for (let i = 0; i < length; i++) {
+        const data2 = await fetchMovieDetails(data.results[i].id);
+        if (data2) movies.push(data2);
+      }
+      setTrendingMovies(movies);
+    }
+  }
+
   return (
     <View className="flex-1 bg-zinc-950 pt-6">
       <SafeAreaView className="flex-row justify-between items-center mx-5">
@@ -23,7 +45,7 @@ export default HomeScreen = () => {
           paddingTop: 20,
         }}
       >
-        <TrendingMoviesList />
+        <TrendingMoviesList movies={trendingMovies} />
       </ScrollView>
     </View>
   );

@@ -12,7 +12,7 @@ import {
   fetchTrendingMovies,
   fetchUpcomingMovies,
 } from "../api/movies";
-import MovieList from "../components/MovieList";
+import PosterList from "../components/PosterList";
 
 export default HomeScreen = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -65,8 +65,8 @@ export default HomeScreen = () => {
         }}
       >
         <TrendingMoviesList movies={trendingMovies} />
-        <MovieList title="Upcoming Movies" data={upcomingMovies} />
-        <MovieList title="Top Rated Movies" data={topRatedMovies} />
+        <PosterList title="Upcoming Movies" data={upcomingMovies} />
+        <PosterList title="Top Rated Movies" data={topRatedMovies} />
       </ScrollView>
     </View>
   );

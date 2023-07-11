@@ -13,17 +13,25 @@ import {
   fetchUpcomingMovies,
 } from "../api/movies";
 import PosterList from "../components/PosterList";
+import { fetchAiringTodayTVs } from "../api/tv";
 
 export default HomeScreen = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [airingTodayTVs, setAiringTodayTVs] = useState([]);
 
   useEffect(() => {
     getTrendingMovies();
     getUpcomingMovies();
     getTopRatedMovies();
+    getAiringTodayTVs();
   }, []);
+
+  async function getAiringTodayTVs() {
+    const data = await fetchAiringTodayTVs();
+    if (data && data.results) setAiringTodayTVs(data.results);
+  }
 
   async function getUpcomingMovies() {
     const data = await fetchUpcomingMovies();
@@ -67,6 +75,7 @@ export default HomeScreen = () => {
         <TrendingMoviesList movies={trendingMovies} />
         <PosterList title="Upcoming Movies" data={upcomingMovies} />
         <PosterList title="Top Rated Movies" data={topRatedMovies} />
+        <PosterList title="Airing Today TV Series" data={airingTodayTVs} />
       </ScrollView>
     </View>
   );

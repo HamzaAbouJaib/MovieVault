@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get("window");
 
 export default PosterList = ({ title, data }) => {
   return (
-    <View className="ml-5">
+    <View className="ml-5 mb-5">
       <Text className="text-white font-semibold text-lg">{title}</Text>
       <ScrollView
         horizontal

@@ -50,8 +50,8 @@ export default HomeScreen = () => {
   }
 
   return (
-    <View className="flex-1 bg-zinc-950 pt-6">
-      <SafeAreaView className="flex-row justify-between items-center mx-5">
+    <View className="flex-1 bg-zinc-950 pt-7">
+      <SafeAreaView className="flex-row justify-between items-center mx-5 mb-3">
         <Bars3BottomLeftIcon color={"white"} size={30} />
         <Text className="text-3xl font-semibold" style={primaryStyles.text}>
           Streamify
@@ -62,7 +62,6 @@ export default HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: 10,
-          paddingTop: 20,
         }}
       >
         <TrendingMoviesList movies={trendingMovies} />

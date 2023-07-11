@@ -25,9 +25,13 @@ export default PosterList = ({ title, data }) => {
               }}
             />
             <Text className="text-neutral-300 ml-1">
-              {item.title.length > 15
-                ? item.title.slice(0, 15) + "..."
-                : item.title}
+              {item.title
+                ? item.title.length > 15
+                  ? item.title.slice(0, 15) + "..."
+                  : item.title
+                : item.name.length > 15
+                ? item.name.slice(0, 15) + "..."
+                : item.name}
             </Text>
           </View>
         ))}

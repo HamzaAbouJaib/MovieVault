@@ -82,8 +82,8 @@ export default HomeScreen = () => {
         <TrendingMoviesList movies={trendingMovies} />
         <PosterList title="Upcoming Movies" data={upcomingMovies} />
         <PosterList title="Top Rated Movies" data={topRatedMovies} />
-        <PosterList title="Airing Today TV Series" data={airingTodayTVs} />
-        <PosterList title="Top Rated TV Series" data={topRatedTVs} />
+        <PosterList title="Airing Today TV Shows" data={airingTodayTVs} />
+        <PosterList title="Top Rated TV Shows" data={topRatedTVs} />
       </ScrollView>
     </View>
   );

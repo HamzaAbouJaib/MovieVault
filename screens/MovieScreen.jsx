@@ -1,5 +1,5 @@
 import { useRoute } from "@react-navigation/native";
-import { View, Text, SafeAreaView, Dimensions } from "react-native";
+import { View, Text, SafeAreaView, Dimensions, ScrollView } from "react-native";
 import {
   ArrowLeftIcon,
   HeartIcon,
@@ -40,8 +40,8 @@ export default MovieScreen = () => {
   }
 
   return (
-    <View className="flex-1 bg-zinc-950 pt-10">
-      <SafeAreaView className="flex-row justify-between items-center mx-5 mb-3 z-20">
+    <ScrollView className="flex-1 bg-zinc-950">
+      <SafeAreaView className="flex-row justify-between items-center mx-5 mb-3 z-20 mt-10">
         <View className="bg-neutral-800 rounded-full p-2">
           <ArrowLeftIcon color={"white"} size={25} strokeWidth={1.7} />
         </View>
@@ -97,7 +97,7 @@ export default MovieScreen = () => {
           {movieDetails?.overview}
         </Text>
       </View>
-      <CastList cast={movieCast} />
-    </View>
+      {movieCast && <CastList cast={movieCast} />}
+    </ScrollView>
   );
 };

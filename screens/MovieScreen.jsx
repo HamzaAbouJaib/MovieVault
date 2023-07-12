@@ -9,24 +9,28 @@ import {
   fallbackMoviePoster,
   fetchMovieCredits,
   fetchMovieDetails,
+  fetchSimilarMovies,
   image500,
 } from "../api/movies";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CastList from "../components/CastList";
+import PosterList from "../components/PosterList";
 
 const { width, height } = Dimensions.get("window");
 
 export default MovieScreen = () => {
   const [movieDetails, setMovieDetails] = useState();
   const [movieCast, setMovieCast] = useState();
+  const [similarMovies, setSimilarMovies] = useState();
 
   const { params: item } = useRoute();
 
   useEffect(() => {
     getMovieDetails(item.id);
     getMovieCredits(item.id);
+    getSimilarMovies(item.id);
   }, [item]);
 
   async function getMovieDetails(id) {
@@ -37,6 +41,11 @@ export default MovieScreen = () => {
   async function getMovieCredits(id) {
     const data = await fetchMovieCredits(id);
     if (data && data.cast) setMovieCast(data.cast);
+  }
+
+  async function getSimilarMovies(id) {
+    const data = await fetchSimilarMovies(id);
+    if (data && data.results) setSimilarMovies(data.results);
   }
 
   return (
@@ -98,6 +107,9 @@ export default MovieScreen = () => {
         </Text>
       </View>
       {movieCast && <CastList cast={movieCast} />}
+      {similarMovies && (
+        <PosterList title="Similar Movies" data={similarMovies} />
+      )}
     </ScrollView>
   );
 };

@@ -1,6 +1,10 @@
 import { useRoute } from "@react-navigation/native";
 import { View, Text, SafeAreaView, Dimensions } from "react-native";
-import { ArrowLeftIcon, HeartIcon } from "react-native-heroicons/outline";
+import {
+  ArrowLeftIcon,
+  HeartIcon,
+  StarIcon,
+} from "react-native-heroicons/outline";
 import {
   fallbackMoviePoster,
   fetchMovieDetails,
@@ -52,6 +56,31 @@ export default MovieScreen = () => {
           end={{ x: 0.5, y: 0.95 }}
           className="absolute"
         />
+      </View>
+      <View style={{ marginTop: height * 0.32 }} className="items-center">
+        <Text className="text-[27px] text-white font-bold text-center px-3">
+          {movieDetails?.title}
+        </Text>
+        <Text className="text-base text-neutral-500 text-center px-3">
+          {movieDetails?.status} • {movieDetails?.release_date?.split("-")[0]} •{" "}
+          {movieDetails?.runtime} min
+        </Text>
+        <View className="flex-row items-center px-3 gap-1">
+          <StarIcon color={"yellow"} fill={"yellow"} size={20} />
+          <Text className="text-base text-white font-semibold">
+            {Number.parseFloat(movieDetails?.vote_average).toFixed(1)}/10{" "}
+          </Text>
+          <Text className="text-xs text-neutral-500">
+            (
+            {movieDetails?.vote_count.length > 3
+              ? movieDetails?.vote_count[0] +
+                "." +
+                movieDetails?.vote_count[1] +
+                "k"
+              : movieDetails?.vote_count}{" "}
+            Reviews)
+          </Text>
+        </View>
       </View>
     </View>
   );

@@ -82,6 +82,12 @@ export default MovieScreen = () => {
           </Text>
         </View>
       </View>
+      <View className="mt-8 mx-5">
+        <Text className="text-lg text-white font-semibold">Synopsis</Text>
+        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
+          {movieDetails?.overview}
+        </Text>
+      </View>
     </View>
   );
 };

@@ -1,8 +1,6 @@
-import { Dimensions, Image } from "react-native";
+import { Image } from "react-native";
 import { View, Text, ScrollView } from "react-native";
 import { fallbackPersonImage, image185 } from "../api/movies";
-
-const { width, height } = Dimensions.get("window");
 
 export default CastList = ({ cast }) => {
   return (

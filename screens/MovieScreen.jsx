@@ -7,27 +7,36 @@ import {
 } from "react-native-heroicons/outline";
 import {
   fallbackMoviePoster,
+  fetchMovieCredits,
   fetchMovieDetails,
   image500,
 } from "../api/movies";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import CastList from "../components/CastList";
 
 const { width, height } = Dimensions.get("window");
 
 export default MovieScreen = () => {
   const [movieDetails, setMovieDetails] = useState();
+  const [movieCast, setMovieCast] = useState();
 
   const { params: item } = useRoute();
 
   useEffect(() => {
     getMovieDetails(item.id);
+    getMovieCredits(item.id);
   }, [item]);
 
   async function getMovieDetails(id) {
     const data = await fetchMovieDetails(id);
     if (data) setMovieDetails(data);
+  }
+
+  async function getMovieCredits(id) {
+    const data = await fetchMovieCredits(id);
+    if (data && data.cast) setMovieCast(data.cast);
   }
 
   return (
@@ -88,6 +97,7 @@ export default MovieScreen = () => {
           {movieDetails?.overview}
         </Text>
       </View>
+      <CastList cast={movieCast} />
     </View>
   );
 };

@@ -1,5 +1,12 @@
-import { useRoute } from "@react-navigation/native";
-import { View, Text, SafeAreaView, Dimensions, ScrollView } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import {
   ArrowLeftIcon,
   HeartIcon,
@@ -26,6 +33,7 @@ export default MovieScreen = () => {
   const [similarMovies, setSimilarMovies] = useState();
 
   const { params: item } = useRoute();
+  const navigation = useNavigation();
 
   useEffect(() => {
     getMovieDetails(item.id);
@@ -51,9 +59,11 @@ export default MovieScreen = () => {
   return (
     <ScrollView className="flex-1 bg-zinc-950">
       <SafeAreaView className="flex-row justify-between items-center mx-5 mb-3 z-20 mt-10">
-        <View className="bg-neutral-800 rounded-full p-2">
-          <ArrowLeftIcon color={"white"} size={25} strokeWidth={1.7} />
-        </View>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <View className="bg-neutral-800 rounded-full p-2">
+            <ArrowLeftIcon color={"white"} size={25} strokeWidth={1.7} />
+          </View>
+        </TouchableOpacity>
         <View className="bg-neutral-800 rounded-full p-2">
           <HeartIcon color={"white"} size={25} strokeWidth={1.7} />
         </View>

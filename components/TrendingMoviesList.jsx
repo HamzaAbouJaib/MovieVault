@@ -52,7 +52,7 @@ export default TrendingMoviesList = ({ movies }) => {
                 <View>
                   <Text
                     className="text-white text-lg font-semibold leading-5"
-                    style={{ width: width * 0.6 }}
+                    style={{ width: width * 0.8 }}
                   >
                     {item.title}
                   </Text>
@@ -65,18 +65,6 @@ export default TrendingMoviesList = ({ movies }) => {
                   </Text>
                 </View>
               </View>
-              <TouchableWithoutFeedback>
-                <View
-                  className="absolute right-0 bottom-0 mr-6 rounded-md mb-5 justify-center items-center"
-                  style={{
-                    width: 40,
-                    height: 40,
-                    ...primaryStyles.background,
-                  }}
-                >
-                  <PlayIcon color={"white"} strokeWidth={1.8} size={23} />
-                </View>
-              </TouchableWithoutFeedback>
             </View>
           );
         }}

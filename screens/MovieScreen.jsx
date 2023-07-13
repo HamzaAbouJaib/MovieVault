@@ -110,7 +110,9 @@ export default MovieScreen = () => {
       <View className="mt-8 mx-5">
         {/* <Text className="text-lg text-white font-semibold">Synopsis</Text> */}
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
-          {movieDetails?.overview}
+          {movieDetails?.overview?.length > 0
+            ? movieDetails?.overview
+            : "Synopsis not available"}
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
           Type: <Text className="text-neutral-300">Movie</Text>

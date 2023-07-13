@@ -100,11 +100,8 @@ export default MovieScreen = () => {
           </Text>
           <Text className="text-xs text-neutral-500">
             (
-            {movieDetails?.vote_count.length > 3
-              ? movieDetails?.vote_count[0] +
-                "." +
-                movieDetails?.vote_count[1] +
-                "k"
+            {movieDetails?.vote_count > 999
+              ? (Math.abs(movieDetails?.vote_count) / 1000).toFixed(1) + "k"
               : movieDetails?.vote_count}{" "}
             Reviews)
           </Text>

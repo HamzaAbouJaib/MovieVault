@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, Dimensions } from "react-native";
-import { image185 } from "../api/movies";
+import { fallbackMoviePoster, image185 } from "../api/movies";
 
 const { width, height } = Dimensions.get("window");
 

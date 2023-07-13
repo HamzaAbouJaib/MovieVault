@@ -108,9 +108,31 @@ export default MovieScreen = () => {
         </View>
       </View>
       <View className="mt-8 mx-5">
-        <Text className="text-lg text-white font-semibold">Synopsis</Text>
+        {/* <Text className="text-lg text-white font-semibold">Synopsis</Text> */}
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
           {movieDetails?.overview}
+        </Text>
+        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
+          Type: <Text className="text-neutral-300">Movie</Text>
+        </Text>
+        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
+          Country:{" "}
+          <Text className="text-neutral-300">
+            {movieDetails?.production_countries[0]?.name}
+          </Text>
+        </Text>
+        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
+          Genres:{" "}
+          {movieDetails?.genres.map((genre, index) => (
+            <Text key={index} className="text-neutral-300">
+              {genre?.name +
+                (index === movieDetails?.genres?.length - 1 ? "" : ", ")}
+            </Text>
+          ))}
+        </Text>
+        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
+          Release Date:{" "}
+          <Text className="text-neutral-300">{movieDetails?.release_date}</Text>
         </Text>
       </View>
       {movieCast && <CastList cast={movieCast} />}

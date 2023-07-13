@@ -127,6 +127,17 @@ export default TVScreen = () => {
           </Text>
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
+          Production:{" "}
+          {TVDetails?.production_companies.map((company, index) => (
+            <Text key={index} className="text-neutral-300">
+              {company?.name +
+                (index === TVDetails?.production_companies?.length - 1
+                  ? ""
+                  : ", ")}
+            </Text>
+          ))}
+        </Text>
+        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Genres:{" "}
           {TVDetails?.genres.map((genre, index) => (
             <Text key={index} className="text-neutral-300">

@@ -1,4 +1,10 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import {
   Bars3BottomLeftIcon,
   MagnifyingGlassIcon,
@@ -14,6 +20,7 @@ import {
 } from "../api/movies";
 import PosterList from "../components/PosterList";
 import { fetchAiringTodayTVs, fetchTopRatedTVs } from "../api/tv";
+import { useNavigation } from "@react-navigation/native";
 
 export default HomeScreen = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -21,6 +28,8 @@ export default HomeScreen = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [airingTodayTVs, setAiringTodayTVs] = useState([]);
   const [topRatedTVs, setTopRatedTvs] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getTrendingMovies();
@@ -71,7 +80,9 @@ export default HomeScreen = () => {
         <Text className="text-3xl font-semibold" style={primaryStyles.text}>
           Streamify
         </Text>
-        <MagnifyingGlassIcon color={"white"} size={25} strokeWidth={1.7} />
+        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+          <MagnifyingGlassIcon color={"white"} size={25} strokeWidth={1.7} />
+        </TouchableOpacity>
       </SafeAreaView>
       <ScrollView
         showsVerticalScrollIndicator={false}

@@ -1,8 +1,11 @@
-import { Image } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import { View, Text, ScrollView } from "react-native";
 import { fallbackPersonImage, image185 } from "../api/movies";
+import { useNavigation } from "@react-navigation/native";
 
 export default CastList = ({ cast }) => {
+  const navigation = useNavigation();
+
   return (
     <View className="ml-5 my-5">
       <Text className="text-white font-semibold text-lg">Cast</Text>
@@ -12,7 +15,11 @@ export default CastList = ({ cast }) => {
         contentContainerStyle={{ paddingTop: 12 }}
       >
         {cast.map((item, index) => (
-          <View className="mr-4 items-center" key={index}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("PersonDetails", item)}
+            className="mr-4 items-center"
+            key={index}
+          >
             <View className="overflow-hidden rounded-full h-20 w-20 items-center border border-neutral-500">
               <Image
                 source={{
@@ -31,7 +38,7 @@ export default CastList = ({ cast }) => {
                 ? item?.original_name?.slice(0, 10) + "..."
                 : item?.original_name}
             </Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

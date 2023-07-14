@@ -123,47 +123,71 @@ export default TVScreen = () => {
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Country:{" "}
           <Text className="text-neutral-300">
-            {TVDetails?.production_countries[0]?.name}
+            {TVDetails?.production_countries?.length > 0
+              ? TVDetails?.production_countries[0]?.name
+              : "Country not available"}
           </Text>
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Production:{" "}
-          {TVDetails?.production_companies.map((company, index) => (
-            <Text key={index} className="text-neutral-300">
-              {company?.name +
-                (index === TVDetails?.production_companies?.length - 1
-                  ? ""
-                  : ", ")}
+          {TVDetails?.production_companies?.length > 0 ? (
+            TVDetails?.production_companies.map((company, index) => (
+              <Text key={index} className="text-neutral-300">
+                {company?.name +
+                  (index === TVDetails?.production_companies?.length - 1
+                    ? ""
+                    : ", ")}
+              </Text>
+            ))
+          ) : (
+            <Text className="text-neutral-300">
+              Production companies not available
             </Text>
-          ))}
+          )}
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Genres:{" "}
-          {TVDetails?.genres.map((genre, index) => (
-            <Text key={index} className="text-neutral-300">
-              {genre?.name +
-                (index === TVDetails?.genres?.length - 1 ? "" : ", ")}
-            </Text>
-          ))}
+          {TVDetails?.genres?.length > 0 ? (
+            TVDetails?.genres.map((genre, index) => (
+              <Text key={index} className="text-neutral-300">
+                {genre?.name +
+                  (index === TVDetails?.genres?.length - 1 ? "" : ", ")}
+              </Text>
+            ))
+          ) : (
+            <Text className="text-neutral-300">Genres not available</Text>
+          )}
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           First Air Date:{" "}
-          <Text className="text-neutral-300">{TVDetails?.first_air_date}</Text>
+          <Text className="text-neutral-300">
+            {TVDetails?.first_air_date
+              ? TVDetails?.first_air_date
+              : "First air date not available"}
+          </Text>
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Last Air Date:{" "}
-          <Text className="text-neutral-300">{TVDetails?.last_air_date}</Text>
+          <Text className="text-neutral-300">
+            {TVDetails?.last_air_date
+              ? TVDetails?.last_air_date
+              : "Last air date not available"}
+          </Text>
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Episodes:{" "}
           <Text className="text-neutral-300">
-            {TVDetails?.number_of_episodes}
+            {TVDetails?.number_of_episodes
+              ? TVDetails?.number_of_episodes
+              : "Number of episodes not available"}
           </Text>
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Seasons:{" "}
           <Text className="text-neutral-300">
-            {TVDetails?.number_of_seasons}
+            {TVDetails?.number_of_seasons
+              ? TVDetails?.number_of_seasons
+              : "Number of seasons not available"}
           </Text>
         </Text>
       </View>

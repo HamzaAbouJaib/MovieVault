@@ -120,32 +120,48 @@ export default MovieScreen = () => {
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Country:{" "}
           <Text className="text-neutral-300">
-            {movieDetails?.production_countries[0]?.name}
+            {movieDetails?.production_countries?.length > 0
+              ? movieDetails?.production_countries[0]?.name
+              : "Country not available"}
           </Text>
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Production:{" "}
-          {movieDetails?.production_companies.map((company, index) => (
-            <Text key={index} className="text-neutral-300">
-              {company?.name +
-                (index === movieDetails?.production_companies?.length - 1
-                  ? ""
-                  : ", ")}
+          {movieDetails?.production_companies?.length > 0 ? (
+            movieDetails?.production_companies.map((company, index) => (
+              <Text key={index} className="text-neutral-300">
+                {company?.name +
+                  (index === movieDetails?.production_companies?.length - 1
+                    ? ""
+                    : ", ")}
+              </Text>
+            ))
+          ) : (
+            <Text className="text-neutral-300">
+              Production companies not available
             </Text>
-          ))}
+          )}
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Genres:{" "}
-          {movieDetails?.genres.map((genre, index) => (
-            <Text key={index} className="text-neutral-300">
-              {genre?.name +
-                (index === movieDetails?.genres?.length - 1 ? "" : ", ")}
-            </Text>
-          ))}
+          {movieDetails?.genres?.length > 0 ? (
+            movieDetails?.genres.map((genre, index) => (
+              <Text key={index} className="text-neutral-300">
+                {genre?.name +
+                  (index === movieDetails?.genres?.length - 1 ? "" : ", ")}
+              </Text>
+            ))
+          ) : (
+            <Text className="text-neutral-300">Genres not available</Text>
+          )}
         </Text>
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-1">
           Release Date:{" "}
-          <Text className="text-neutral-300">{movieDetails?.release_date}</Text>
+          <Text className="text-neutral-300">
+            {movieDetails?.release_date
+              ? movieDetails?.release_date
+              : "Release date not available"}
+          </Text>
         </Text>
       </View>
       {movieCast && <CastList cast={movieCast} />}

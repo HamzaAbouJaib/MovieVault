@@ -6,6 +6,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from "react-native";
 import {
   ArrowLeftIcon,
@@ -30,6 +31,8 @@ export default PersonScreen = () => {
   const [personDetails, setPersonDetails] = useState();
   const [personMovies, setPersonMovies] = useState();
   const [personTVs, setPersonTVs] = useState();
+
+  const [readMore, setReadMore] = useState(false);
 
   const { params: item } = useRoute();
   const navigation = useNavigation();
@@ -139,11 +142,31 @@ export default PersonScreen = () => {
           </Text>
         </View>
         <Text className="text-lg text-white font-semibold my-3">Biography</Text>
-        <Text className="text-neutral-500 text-[14px] leading-[18px]">
-          {personDetails?.biography?.length > 0
-            ? personDetails?.biography
-            : "Biography not available"}
-        </Text>
+        {personDetails?.biography?.length > 0 ? (
+          <View>
+            {personDetails.biography.length > 300 && !readMore ? (
+              <Text className="text-neutral-500 text-[14px] leading-[18px]">
+                {personDetails.biography.slice(0, 300) + "..."}
+              </Text>
+            ) : (
+              <Text className="text-neutral-500 text-[14px] leading-[18px]">
+                {personDetails.biography}
+              </Text>
+            )}
+
+            <TouchableWithoutFeedback
+              onPress={() => setReadMore((prev) => !prev)}
+            >
+              <Text className="text-neutral-300 text-center mt-1 text-base">
+                {readMore ? "Read less" : "Read more"}
+              </Text>
+            </TouchableWithoutFeedback>
+          </View>
+        ) : (
+          <Text className="text-neutral-500 text-[14px] leading-[18px]">
+            Biography not available
+          </Text>
+        )}
       </View>
       {personMovies && (
         <PosterList title="Movies" data={personMovies} type="movie" />

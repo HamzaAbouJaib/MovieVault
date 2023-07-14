@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { fetchPersonTVs } from "../api/tv";
+import PosterList from "../components/PosterList";
 
 const { width, height } = Dimensions.get("window");
 
@@ -144,6 +145,10 @@ export default PersonScreen = () => {
             : "Biography not available"}
         </Text>
       </View>
+      {personMovies && (
+        <PosterList title="Movies" data={personMovies} type="movie" />
+      )}
+      {personTVs && <PosterList title="TV Shows" data={personTVs} type="tv" />}
     </ScrollView>
   );
 };

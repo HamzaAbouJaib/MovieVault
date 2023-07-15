@@ -10,12 +10,13 @@ import {
 } from "react-native";
 import { ArrowLeftIcon, HeartIcon } from "react-native-heroicons/outline";
 import { fetchPersonDetails, fetchPersonMovies } from "../api/movies";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { fetchPersonTVs } from "../api/tv";
 import PosterList from "../components/PosterList";
 import { fallbackPersonImage, image500 } from "../api/shared";
+import FavouritesContext from "../store/Favourites";
 
 const { width, height } = Dimensions.get("window");
 
@@ -23,6 +24,9 @@ export default PersonScreen = () => {
   const [personDetails, setPersonDetails] = useState();
   const [personMovies, setPersonMovies] = useState();
   const [personTVs, setPersonTVs] = useState();
+
+  const { favouritePeople, addFavouritePeople, removeFavouritePeople } =
+    useContext(FavouritesContext);
 
   const [readMore, setReadMore] = useState(false);
 
@@ -58,9 +62,23 @@ export default PersonScreen = () => {
             <ArrowLeftIcon color={"white"} size={25} strokeWidth={1.7} />
           </View>
         </TouchableOpacity>
-        <View className="bg-neutral-800 rounded-full p-2">
-          <HeartIcon color={"white"} size={25} strokeWidth={1.7} />
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            if (favouritePeople.includes(item.id)) {
+              removeFavouritePeople(item.id);
+            } else {
+              addFavouritePeople(item.id);
+            }
+          }}
+        >
+          <View className="bg-neutral-800 rounded-full p-2">
+            <HeartIcon
+              color={favouritePeople.includes(item.id) ? "red" : "white"}
+              size={25}
+              strokeWidth={1.7}
+            />
+          </View>
+        </TouchableOpacity>
       </SafeAreaView>
       <View className="absolute" style={{ height: height * 0.6 }}>
         <Image

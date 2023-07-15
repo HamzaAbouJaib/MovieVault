@@ -13,13 +13,10 @@ import {
   Keyboard,
 } from "react-native";
 import { ArrowLeftIcon } from "react-native-heroicons/outline";
-import {
-  fallbackMoviePoster,
-  fetchSearchedMovies,
-  image185,
-} from "../api/movies";
+import { fetchSearchedMovies } from "../api/movies";
 import { fetchSearchedTVs } from "../api/tv";
 import { Image } from "react-native";
+import { fallbackMoviePoster, image185 } from "../api/shared";
 
 const { width, height } = Dimensions.get("window");
 
@@ -30,7 +27,7 @@ export default SearchScreen = () => {
   const navigation = useNavigation();
 
   function searchHandler(query) {
-    if (query && query.length > 0) {
+    if (query && query.length > 2) {
       fetchSearchedMovies(query).then((data) => {
         if (data && data.results) {
           setMovieSearchResults(data.results);
@@ -41,6 +38,9 @@ export default SearchScreen = () => {
           setTVSearchResults(data.results);
         }
       });
+    } else {
+      setTVSearchResults([]);
+      setMovieSearchResults([]);
     }
   }
 

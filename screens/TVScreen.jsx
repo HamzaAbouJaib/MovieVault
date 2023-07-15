@@ -60,8 +60,6 @@ export default TVScreen = () => {
     if (data && data.results) setSimilarTVs(data.results);
   }
 
-  console.log(TVDetails);
-
   return (
     <ScrollView className="flex-1 bg-zinc-950">
       <SafeAreaView className="flex-row justify-between items-center mx-5 mb-3 z-20 mt-10">

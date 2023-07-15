@@ -11,7 +11,7 @@ const movieDetailsEndpoint = (id) =>
 const movieCreditsEndpoint = (id) =>
   `${baseEndpoint}/movie/${id}/credits?api_key=${ApiKey}`;
 const similarMoviesEndpoint = (id) =>
-  `${baseEndpoint}/movie/${id}/similar?api_key=${ApiKey}`;
+  `${baseEndpoint}/movie/${id}/recommendations?api_key=${ApiKey}`;
 const personDetailsEndpoint = (id) =>
   `${baseEndpoint}/person/${id}?api_key=${ApiKey}`;
 const personMoviesEndpoint = (id) =>

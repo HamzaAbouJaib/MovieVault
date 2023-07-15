@@ -10,7 +10,7 @@ const tvDetailsEndpoint = (id) => `${baseEndpoint}/tv/${id}?api_key=${ApiKey}`;
 const tvCreditsEndpoint = (id) =>
   `${baseEndpoint}/tv/${id}/credits?api_key=${ApiKey}`;
 const similarTVsEndpoint = (id) =>
-  `${baseEndpoint}/tv/${id}/similar?api_key=${ApiKey}`;
+  `${baseEndpoint}/tv/${id}/recommendations?api_key=${ApiKey}`;
 const personDetailsEndpoint = (id) =>
   `${baseEndpoint}/person/${id}?api_key=${ApiKey}`;
 const personTVsEndpoint = (id) =>

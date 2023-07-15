@@ -1,7 +1,7 @@
 import { Image, TouchableOpacity } from "react-native";
 import { View, Text, ScrollView } from "react-native";
-import { fallbackPersonImage, image185 } from "../api/movies";
 import { useNavigation } from "@react-navigation/native";
+import { fallbackPersonImage, image185 } from "../api/shared";
 
 export default CastList = ({ cast }) => {
   const navigation = useNavigation();

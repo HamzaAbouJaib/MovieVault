@@ -6,8 +6,8 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
 } from "react-native";
-import { fallbackMoviePoster, image185 } from "../api/movies";
 import { useNavigation } from "@react-navigation/native";
+import { fallbackMoviePoster, image185 } from "../api/shared";
 
 const { width, height } = Dimensions.get("window");
 

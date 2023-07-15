@@ -9,17 +9,13 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { ArrowLeftIcon, HeartIcon } from "react-native-heroicons/outline";
-import {
-  fallbackPersonImage,
-  fetchPersonDetails,
-  fetchPersonMovies,
-  image500,
-} from "../api/movies";
+import { fetchPersonDetails, fetchPersonMovies } from "../api/movies";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { fetchPersonTVs } from "../api/tv";
 import PosterList from "../components/PosterList";
+import { fallbackPersonImage, image500 } from "../api/shared";
 
 const { width, height } = Dimensions.get("window");
 

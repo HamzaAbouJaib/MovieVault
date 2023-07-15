@@ -14,17 +14,16 @@ import {
   StarIcon,
 } from "react-native-heroicons/outline";
 import {
-  fallbackMoviePoster,
   fetchMovieCredits,
   fetchMovieDetails,
   fetchSimilarMovies,
-  image500,
 } from "../api/movies";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CastList from "../components/CastList";
 import PosterList from "../components/PosterList";
+import { fallbackMoviePoster, image500 } from "../api/shared";
 
 const { width, height } = Dimensions.get("window");
 

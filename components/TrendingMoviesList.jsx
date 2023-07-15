@@ -9,8 +9,8 @@ import {
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { LinearGradient } from "expo-linear-gradient";
 import { primaryStyles } from "../themes/primary";
-import { image500 } from "../api/movies";
 import { useNavigation } from "@react-navigation/native";
+import { image500 } from "../api/shared";
 
 const { width, height } = Dimensions.get("window");
 

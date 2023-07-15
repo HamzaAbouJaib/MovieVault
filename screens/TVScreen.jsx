@@ -13,13 +13,14 @@ import {
   HeartIcon,
   StarIcon,
 } from "react-native-heroicons/outline";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CastList from "../components/CastList";
 import PosterList from "../components/PosterList";
 import { fetchSimilarTVs, fetchTVCredits, fetchTVDetails } from "../api/tv";
 import { fallbackMoviePoster, image500 } from "../api/shared";
+import FavouritesContext from "../store/Favourites";
 
 const { width, height } = Dimensions.get("window");
 
@@ -27,6 +28,9 @@ export default TVScreen = () => {
   const [TVDetails, setTVDetails] = useState();
   const [TVCast, setTVCast] = useState();
   const [similarTVs, setSimilarTVs] = useState();
+
+  const { favouriteTVs, addFavouriteTVs, removeFavouriteTVs } =
+    useContext(FavouritesContext);
 
   const [readMore, setReadMore] = useState(false);
 
@@ -62,9 +66,23 @@ export default TVScreen = () => {
             <ArrowLeftIcon color={"white"} size={25} strokeWidth={1.7} />
           </View>
         </TouchableOpacity>
-        <View className="bg-neutral-800 rounded-full p-2">
-          <HeartIcon color={"white"} size={25} strokeWidth={1.7} />
-        </View>
+        <TouchableOpacity
+          onPress={() => {
+            if (favouriteTVs.includes(item.id)) {
+              removeFavouriteTVs(item.id);
+            } else {
+              addFavouriteTVs(item.id);
+            }
+          }}
+        >
+          <View className="bg-neutral-800 rounded-full p-2">
+            <HeartIcon
+              color={favouriteTVs.includes(item.id) ? "red" : "white"}
+              size={25}
+              strokeWidth={1.7}
+            />
+          </View>
+        </TouchableOpacity>
       </SafeAreaView>
       <View className="absolute" style={{ height: height * 0.6 }}>
         <Image

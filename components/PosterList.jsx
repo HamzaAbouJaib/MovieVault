@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
-export default PosterList = ({ title, data, type }) => {
+export default PosterList = ({ title, data }) => {
   const navigation = useNavigation();
 
   return (
@@ -26,10 +26,7 @@ export default PosterList = ({ title, data, type }) => {
           <TouchableWithoutFeedback
             key={index}
             onPress={() => {
-              navigation.navigate(
-                type === "movie" ? "MovieDetails" : "TVDetails",
-                item
-              );
+              navigation.push(item.title ? "MovieDetails" : "TVDetails", item);
             }}
           >
             <View className="space-y-1 mr-4">

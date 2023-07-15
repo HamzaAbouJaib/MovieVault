@@ -6,6 +6,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
 import {
   ArrowLeftIcon,
@@ -32,6 +33,8 @@ export default TVScreen = () => {
   const [TVDetails, setTVDetails] = useState();
   const [TVCast, setTVCast] = useState();
   const [similarTVs, setSimilarTVs] = useState();
+
+  const [readMore, setReadMore] = useState(false);
 
   const { params: item } = useRoute();
   const navigation = useNavigation();
@@ -112,11 +115,29 @@ export default TVScreen = () => {
       </View>
       <View className="mt-8 mx-5">
         {/* <Text className="text-lg text-white font-semibold">Synopsis</Text> */}
-        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
-          {TVDetails?.overview?.length > 0
-            ? TVDetails?.overview
-            : "Synopsis not available"}
-        </Text>
+        {TVDetails?.overview?.length > 0 ? (
+          <View>
+            {TVDetails.overview.length > 300 && !readMore ? (
+              <Text className="text-neutral-500 text-[14px] leading-[18px]">
+                {TVDetails.overview.slice(0, 300) + "..."}
+              </Text>
+            ) : (
+              <Text className="text-neutral-500 text-[14px] leading-[18px]">
+                {TVDetails.overview}
+              </Text>
+            )}
+
+            <TouchableHighlight onPress={() => setReadMore((prev) => !prev)}>
+              <Text className="text-neutral-300 text-center mt-1 text-base">
+                {readMore ? "Read less" : "Read more"}
+              </Text>
+            </TouchableHighlight>
+          </View>
+        ) : (
+          <Text className="text-neutral-500 text-[14px] leading-[18px]">
+            Synopsis not available
+          </Text>
+        )}
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
           Type: <Text className="text-neutral-300">TV Show</Text>
         </Text>

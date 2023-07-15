@@ -6,6 +6,8 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
 } from "react-native";
 import {
   ArrowLeftIcon,
@@ -31,6 +33,8 @@ export default MovieScreen = () => {
   const [movieDetails, setMovieDetails] = useState();
   const [movieCast, setMovieCast] = useState();
   const [similarMovies, setSimilarMovies] = useState();
+
+  const [readMore, setReadMore] = useState(false);
 
   const { params: item } = useRoute();
   const navigation = useNavigation();
@@ -109,11 +113,29 @@ export default MovieScreen = () => {
       </View>
       <View className="mt-8 mx-5">
         {/* <Text className="text-lg text-white font-semibold">Synopsis</Text> */}
-        <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
-          {movieDetails?.overview?.length > 0
-            ? movieDetails?.overview
-            : "Synopsis not available"}
-        </Text>
+        {movieDetails?.overview?.length > 0 ? (
+          <View>
+            {movieDetails.overview.length > 300 && !readMore ? (
+              <Text className="text-neutral-500 text-[14px] leading-[18px]">
+                {movieDetails.overview.slice(0, 300) + "..."}
+              </Text>
+            ) : (
+              <Text className="text-neutral-500 text-[14px] leading-[18px]">
+                {movieDetails.overview}
+              </Text>
+            )}
+
+            <TouchableHighlight onPress={() => setReadMore((prev) => !prev)}>
+              <Text className="text-neutral-300 text-center mt-1 text-base">
+                {readMore ? "Read less" : "Read more"}
+              </Text>
+            </TouchableHighlight>
+          </View>
+        ) : (
+          <Text className="text-neutral-500 text-[14px] leading-[18px]">
+            Synopsis not available
+          </Text>
+        )}
         <Text className="text-neutral-500 text-[14px] leading-[18px] mt-3">
           Type: <Text className="text-neutral-300">Movie</Text>
         </Text>

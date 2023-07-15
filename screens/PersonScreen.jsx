@@ -6,13 +6,9 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
+  TouchableHighlight,
 } from "react-native";
-import {
-  ArrowLeftIcon,
-  HeartIcon,
-  StarIcon,
-} from "react-native-heroicons/outline";
+import { ArrowLeftIcon, HeartIcon } from "react-native-heroicons/outline";
 import {
   fallbackPersonImage,
   fetchPersonDetails,
@@ -154,13 +150,11 @@ export default PersonScreen = () => {
               </Text>
             )}
 
-            <TouchableWithoutFeedback
-              onPress={() => setReadMore((prev) => !prev)}
-            >
+            <TouchableHighlight onPress={() => setReadMore((prev) => !prev)}>
               <Text className="text-neutral-300 text-center mt-1 text-base">
                 {readMore ? "Read less" : "Read more"}
               </Text>
-            </TouchableWithoutFeedback>
+            </TouchableHighlight>
           </View>
         ) : (
           <Text className="text-neutral-500 text-[14px] leading-[18px]">

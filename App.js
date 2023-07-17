@@ -1,13 +1,16 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import HomeStack from "./navigation/HomeStack";
 import { FavouritesContextProvider } from "./store/Favourites";
+import { AppNavigation } from "./navigation/AppNavigation";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function App() {
   return (
     <FavouritesContextProvider>
-      <HomeStack />
-      <StatusBar style="light" />
+      <NavigationContainer>
+        <AppNavigation />
+        <StatusBar style="light" />
+      </NavigationContainer>
     </FavouritesContextProvider>
   );
 }

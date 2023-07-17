@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import AppNavigation from "./navigation/AppNavigation";
+import MainNavigation from "./navigation/MainNavigation";
 import { FavouritesContextProvider } from "./store/Favourites";
 
 export default function App() {
   return (
     <FavouritesContextProvider>
-      <AppNavigation />
+      <MainNavigation />
       <StatusBar style="light" />
     </FavouritesContextProvider>
   );

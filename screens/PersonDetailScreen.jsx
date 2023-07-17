@@ -20,7 +20,7 @@ import FavouritesContext from "../store/Favourites";
 
 const { width, height } = Dimensions.get("window");
 
-export default PersonScreen = () => {
+export default PersonDetailScreen = () => {
   const [personDetails, setPersonDetails] = useState();
   const [personMovies, setPersonMovies] = useState();
   const [personTVs, setPersonTVs] = useState();

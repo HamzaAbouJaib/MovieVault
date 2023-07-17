@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
-import MovieScreen from "../screens/MovieScreen";
+import MovieDetailScreen from "../screens/MovieDetailScreen";
 import TVScreen from "../screens/TVScreen";
 import PersonScreen from "../screens/PersonScreen";
 import SearchScreen from "../screens/SearchScreen";
@@ -20,7 +20,7 @@ export default function AppNavigation() {
         <Stack.Screen
           name="MovieDetails"
           options={{ headerShown: false }}
-          component={MovieScreen}
+          component={MovieDetailScreen}
         />
         <Stack.Screen
           name="TVDetails"

@@ -24,7 +24,7 @@ import FavouritesContext from "../store/Favourites";
 
 const { width, height } = Dimensions.get("window");
 
-export default TVScreen = () => {
+export default TVDetailScreen = () => {
   const [TVDetails, setTVDetails] = useState();
   const [TVCast, setTVCast] = useState();
   const [similarTVs, setSimilarTVs] = useState();

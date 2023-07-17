@@ -28,7 +28,7 @@ import FavouritesContext from "../store/Favourites";
 
 const { width, height } = Dimensions.get("window");
 
-export default MovieScreen = () => {
+export default MovieDetailScreen = () => {
   const [movieDetails, setMovieDetails] = useState();
   const [movieCast, setMovieCast] = useState();
   const [similarMovies, setSimilarMovies] = useState();

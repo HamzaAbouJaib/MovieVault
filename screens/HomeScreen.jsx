@@ -76,7 +76,13 @@ export default HomeScreen = () => {
   return (
     <View className="flex-1 bg-zinc-950 pt-10">
       <SafeAreaView className="flex-row justify-between items-center mx-5 mb-3">
-        <Bars3BottomLeftIcon color={"white"} size={30} />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.openDrawer();
+          }}
+        >
+          <Bars3BottomLeftIcon color={"white"} size={30} />
+        </TouchableOpacity>
         <Text className="text-3xl font-semibold" style={primaryStyles.text}>
           Streamify
         </Text>

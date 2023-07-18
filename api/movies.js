@@ -6,6 +6,7 @@ const trendingMoviesEndpoint = `${baseEndpoint}/trending/movie/day?api_key=${Api
 const upcomingMoviesEndpoint = `${baseEndpoint}/movie/upcoming?api_key=${ApiKey}`;
 const topRatedMoviesEndpoint = `${baseEndpoint}/movie/top_rated?api_key=${ApiKey}`;
 const nowPlayingMoviesEndpoint = `${baseEndpoint}/movie/now_playing?api_key=${ApiKey}`;
+const MovieGenresEndpoint = `${baseEndpoint}/genre/movie/list?api_key=${ApiKey}`;
 
 const movieDetailsEndpoint = (id) =>
   `${baseEndpoint}/movie/${id}?api_key=${ApiKey}`;
@@ -52,6 +53,10 @@ export function fetchTopRatedMovies() {
 
 export function fetchNowPlayingMovies() {
   return apiCall(nowPlayingMoviesEndpoint);
+}
+
+export function fetchMovieGenres() {
+  return apiCall(MovieGenresEndpoint);
 }
 
 export function fetchMovieDetails(id) {

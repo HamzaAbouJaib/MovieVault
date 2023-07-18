@@ -1,7 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeStack from "./HomeStack";
 import { primaryTheme } from "../themes/primary";
-import { Text } from "react-native";
+import MoviesScreen from "../screens/MoviesScreen";
+import MoviesStack from "./MoviesStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -12,6 +13,7 @@ export function AppNavigation() {
         headerShown: false,
         drawerActiveBackgroundColor: "#27272a",
         drawerActiveTintColor: primaryTheme.text,
+        drawerInactiveTintColor: "white",
         drawerStyle: {
           backgroundColor: "#18181b",
           width: "60%",
@@ -19,6 +21,7 @@ export function AppNavigation() {
       }}
     >
       <Drawer.Screen name="Home" component={HomeStack} />
+      <Drawer.Screen name="Movies" component={MoviesStack} />
     </Drawer.Navigator>
   );
 }

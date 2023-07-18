@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  TouchableWithoutFeedback,
+  Dimensions,
 } from "react-native";
 import {
   Bars3BottomLeftIcon,
@@ -20,9 +22,12 @@ import {
   fetchTrendingMovies,
 } from "../api/movies";
 import { useEffect, useState } from "react";
-import PosterList from "../components/PosterList";
 import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import { StyleSheet } from "react-native";
+import { Image } from "react-native";
+import { fallbackMoviePoster, image185 } from "../api/shared";
+
+const { width, height } = Dimensions.get("window");
 
 export default MoviesScreen = () => {
   const [filteredMovies, setFilteredMovies] = useState([]);
@@ -50,7 +55,7 @@ export default MoviesScreen = () => {
     const genres = selectedGenres.join(",");
     const data = await fetchFilteredMovies(
       genres || "",
-      selectedYear.id === null ? "" : selectedYear.id
+      selectedYear?.id === null ? "" : selectedYear?.id
     );
     if (data && data.results) setFilteredMovies(data.results);
   }
@@ -114,60 +119,80 @@ export default MoviesScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: 10,
+          marginHorizontal: 20,
         }}
       >
-        <View className="mx-5">
-          <MultiSelect
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            data={movieGenres}
-            labelField="name"
-            valueField="id"
-            placeholder="Select genres..."
-            value={selectedGenres}
-            onChange={(item) => {
-              setSelectedGenres(item);
-            }}
-            itemTextStyle={{ color: "white" }}
-            selectedStyle={styles.selectedStyle}
-            itemContainerStyle={{
-              backgroundColor: "#18181b",
-              borderWidth: 1,
-              borderColor: "#18181b",
-            }}
-            activeColor="#3f3f46"
-          />
-        </View>
-        <View className="mx-5">
-          <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            data={movieYears}
-            labelField="year"
-            valueField="id"
-            placeholder="Select release year..."
-            value={selectedYear}
-            onChange={(item) => {
-              setSelectedYear(item);
-            }}
-            itemTextStyle={{ color: "white" }}
-            selectedStyle={styles.selectedStyle}
-            itemContainerStyle={{
-              backgroundColor: "#18181b",
-              borderWidth: 1,
-              borderColor: "#18181b",
-            }}
-            activeColor="#3f3f46"
-            flatListProps={{
-              ListFooterComponent: <RenderFooter isLoading={isLoading} />,
-              onEndReachedThreshold: 0.5,
-              onEndReached: onLoadMore,
-            }}
-          />
+        <MultiSelect
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          data={movieGenres}
+          labelField="name"
+          valueField="id"
+          placeholder="Select genres..."
+          value={selectedGenres}
+          onChange={(item) => {
+            setSelectedGenres(item);
+          }}
+          itemTextStyle={{ color: "white" }}
+          selectedStyle={styles.selectedStyle}
+          itemContainerStyle={{
+            backgroundColor: "#18181b",
+            borderWidth: 1,
+            borderColor: "#18181b",
+          }}
+          activeColor="#3f3f46"
+        />
+        <Dropdown
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          data={movieYears}
+          labelField="year"
+          valueField="id"
+          placeholder="Select release year..."
+          value={selectedYear}
+          onChange={(item) => {
+            setSelectedYear(item);
+          }}
+          itemTextStyle={{ color: "white" }}
+          selectedStyle={styles.selectedStyle}
+          itemContainerStyle={{
+            backgroundColor: "#18181b",
+            borderWidth: 1,
+            borderColor: "#18181b",
+          }}
+          activeColor="#3f3f46"
+          flatListProps={{
+            ListFooterComponent: <RenderFooter isLoading={isLoading} />,
+            onEndReachedThreshold: 0.5,
+            onEndReached: onLoadMore,
+          }}
+        />
+        <View className="flex-row justify-between flex-wrap mx-3 mt-8">
+          {filteredMovies.map((result, index) => (
+            <TouchableWithoutFeedback
+              key={index}
+              onPress={() => navigation.push("MovieDetails", result)}
+            >
+              <View className="space-y-1 mb-4">
+                <Image
+                  className="rounded-3xl"
+                  source={{
+                    uri: image185(result.poster_path) || fallbackMoviePoster,
+                  }}
+                  style={{ width: width * 0.38, height: height * 0.28 }}
+                />
+                <Text className="text-neutral-400 ml-1">
+                  {result?.title?.length > 20
+                    ? result?.title?.slice(0, 20) + "..."
+                    : result?.title}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+          ))}
         </View>
       </ScrollView>
     </View>

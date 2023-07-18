@@ -2,10 +2,10 @@ import { useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
-  Button,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import {
   Bars3BottomLeftIcon,
@@ -13,17 +13,28 @@ import {
 } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
 import {
+  fetchMovieGenres,
   fetchNowPlayingMovies,
   fetchTopRatedMovies,
   fetchTrendingMovies,
 } from "../api/movies";
 import { useEffect, useState } from "react";
 import PosterList from "../components/PosterList";
+import { Dropdown, MultiSelect } from "react-native-element-dropdown";
+import { StyleSheet } from "react-native";
 
 export default MoviesScreen = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+  const [movieGenres, setMovieGenres] = useState([]);
+  const [movieYears, setMovieYears] = useState([]);
+
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedYear, setSelectedYear] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [yearRange, setYearRange] = useState({ start: 2000, end: 1990 });
 
   const navigation = useNavigation();
 
@@ -31,6 +42,8 @@ export default MoviesScreen = () => {
     getTrendingMovies();
     getTopRatedMovies();
     getNowPlayingMovies();
+    getMovieGenres();
+    generateYears();
   }, []);
 
   async function getTopRatedMovies() {
@@ -47,6 +60,44 @@ export default MoviesScreen = () => {
     const data = await fetchNowPlayingMovies();
     if (data && data.results) setNowPlayingMovies(data.results);
   }
+
+  async function getMovieGenres() {
+    const data = await fetchMovieGenres();
+    if (data && data.genres) setMovieGenres(data.genres);
+  }
+
+  function generateYears(startYear = 2023, endYear = 2001) {
+    if (endYear === 1950) {
+      setIsLoading(false);
+      return;
+    }
+
+    const years = [];
+    for (let i = startYear; i >= endYear; i--) {
+      years.push({ id: i.toString(), year: i.toString() });
+    }
+    setMovieYears((prev) => [...prev, ...years]);
+    setIsLoading(false);
+  }
+
+  const RenderFooter = ({ isLoading }) => {
+    if (!isLoading) {
+      return null;
+    }
+    return (
+      <View style={styles.footerContainer}>
+        <ActivityIndicator color={"gray"} size={"large"} />
+      </View>
+    );
+  };
+
+  const onLoadMore = () => {
+    setIsLoading(true);
+    generateYears(yearRange.start, yearRange.end);
+    setYearRange((prev) => {
+      return { start: prev.start - 11, end: prev.end - 10 };
+    });
+  };
 
   return (
     <View className="flex-1 bg-zinc-950 pt-10">
@@ -71,6 +122,60 @@ export default MoviesScreen = () => {
           paddingBottom: 10,
         }}
       >
+        <View className="mx-5">
+          <MultiSelect
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            data={movieGenres}
+            labelField="name"
+            valueField="id"
+            placeholder="Select genres..."
+            value={selectedGenres}
+            onChange={(item) => {
+              setSelectedGenres(item);
+            }}
+            itemTextStyle={{ color: "white" }}
+            selectedStyle={styles.selectedStyle}
+            itemContainerStyle={{
+              backgroundColor: "#18181b",
+              borderWidth: 1,
+              borderColor: "#18181b",
+            }}
+            activeColor="#3f3f46"
+          />
+        </View>
+        <View className="mx-5">
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            data={movieYears}
+            labelField="year"
+            valueField="id"
+            placeholder="Select release year..."
+            value={selectedYear}
+            onChange={(item) => {
+              setSelectedYear(item);
+            }}
+            itemTextStyle={{ color: "white" }}
+            selectedStyle={styles.selectedStyle}
+            itemContainerStyle={{
+              backgroundColor: "#18181b",
+              borderWidth: 1,
+              borderColor: "#18181b",
+            }}
+            activeColor="#3f3f46"
+            flatListProps={{
+              ListFooterComponent: <RenderFooter isLoading={isLoading} />,
+              onEndReachedThreshold: 0.5,
+              onEndReached: onLoadMore,
+            }}
+          />
+        </View>
+
         <PosterList title="Now in Theatres" data={nowPlayingMovies} />
         <PosterList title="Trending" data={trendingMovies} />
         <PosterList title="Top Rated" data={topRatedMovies} />
@@ -78,3 +183,36 @@ export default MoviesScreen = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  dropdown: {
+    height: 50,
+    backgroundColor: "transparent",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    marginBottom: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color: "white",
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+    color: "white",
+  },
+  inputSearchStyle: {
+    fontSize: 16,
+    color: "white",
+    backgroundColor: "#18181b",
+  },
+  selectedStyle: {
+    color: "white",
+    backgroundColor: "#18181b",
+    borderWidth: 1,
+    borderColor: "#3f3f46",
+  },
+  footerContainer: {
+    padding: 16,
+    alignItems: "center",
+  },
+});

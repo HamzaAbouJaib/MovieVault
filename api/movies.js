@@ -21,7 +21,9 @@ const personMoviesEndpoint = (id) =>
 const searchMoviesEndpoint = (query) =>
   `${baseEndpoint}/search/movie?query=${query}&include_adult=true&language=en-US&page=1&api_key=${ApiKey}`;
 const movieBannerImagesEndpoint = (id) =>
-  `${baseEndpoint}/movie/${id}/images'?api_key=${ApiKey}`;
+  `${baseEndpoint}/movie/${id}/images?api_key=${ApiKey}`;
+const filteredMoviesEndpoint = (genres = "", year = "") =>
+  `${baseEndpoint}/discover/movie?primary_release_year=${year}&with_genres=${genres}&api_key=${ApiKey}`;
 
 async function apiCall(endpoint, params) {
   const options = {
@@ -85,4 +87,8 @@ export function fetchSearchedMovies(query) {
 
 export function fetchMovieBannerImages(id) {
   return apiCall(movieBannerImagesEndpoint(id));
+}
+
+export function fetchFilteredMovies(genres, year) {
+  return apiCall(filteredMoviesEndpoint(genres, year));
 }

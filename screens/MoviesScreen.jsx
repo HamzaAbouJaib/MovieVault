@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {
-  ArrowLeftIcon,
   Bars3BottomLeftIcon,
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
@@ -17,7 +16,6 @@ import {
   fetchNowPlayingMovies,
   fetchTopRatedMovies,
   fetchTrendingMovies,
-  fetchUpcomingMovies,
 } from "../api/movies";
 import { useEffect, useState } from "react";
 import PosterList from "../components/PosterList";

@@ -15,26 +15,32 @@ export default function HomeStack() {
         options={{ headerShown: false }}
         component={HomeScreen}
       />
-      <Stack.Screen
-        name="MovieDetails"
-        options={{ headerShown: false }}
-        component={MovieDetailScreen}
-      />
-      <Stack.Screen
-        name="TVDetails"
-        options={{ headerShown: false }}
-        component={TVDetailScreen}
-      />
-      <Stack.Screen
-        name="PersonDetails"
-        options={{ headerShown: false }}
-        component={PersonDetailScreen}
-      />
-      <Stack.Screen
-        name="Search"
-        options={{ headerShown: false }}
-        component={SearchScreen}
-      />
+      {common}
     </Stack.Navigator>
   );
 }
+
+export const common = (
+  <>
+    <Stack.Screen
+      name="MovieDetails"
+      options={{ headerShown: false }}
+      component={MovieDetailScreen}
+    />
+    <Stack.Screen
+      name="TVDetails"
+      options={{ headerShown: false }}
+      component={TVDetailScreen}
+    />
+    <Stack.Screen
+      name="PersonDetails"
+      options={{ headerShown: false }}
+      component={PersonDetailScreen}
+    />
+    <Stack.Screen
+      name="Search"
+      options={{ headerShown: false }}
+      component={SearchScreen}
+    />
+  </>
+);

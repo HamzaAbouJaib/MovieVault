@@ -13,6 +13,7 @@ import {
 } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
 import {
+  fetchFilteredMovies,
   fetchMovieGenres,
   fetchNowPlayingMovies,
   fetchTopRatedMovies,
@@ -24,11 +25,9 @@ import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import { StyleSheet } from "react-native";
 
 export default MoviesScreen = () => {
-  const [trendingMovies, setTrendingMovies] = useState([]);
-  const [topRatedMovies, setTopRatedMovies] = useState([]);
-  const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [movieGenres, setMovieGenres] = useState([]);
-  const [movieYears, setMovieYears] = useState([]);
+  const [movieYears, setMovieYears] = useState([{ id: null, year: "No year" }]);
 
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedYear, setSelectedYear] = useState();
@@ -39,26 +38,21 @@ export default MoviesScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    getTrendingMovies();
-    getTopRatedMovies();
-    getNowPlayingMovies();
     getMovieGenres();
     generateYears();
   }, []);
 
-  async function getTopRatedMovies() {
-    const data = await fetchTopRatedMovies();
-    if (data && data.results) setTopRatedMovies(data.results);
-  }
+  useEffect(() => {
+    getFilteredMovies();
+  }, [selectedGenres, selectedYear]);
 
-  async function getTrendingMovies() {
-    const data = await fetchTrendingMovies();
-    if (data && data.results) setTrendingMovies(data.results);
-  }
-
-  async function getNowPlayingMovies() {
-    const data = await fetchNowPlayingMovies();
-    if (data && data.results) setNowPlayingMovies(data.results);
+  async function getFilteredMovies() {
+    const genres = selectedGenres.join(",");
+    const data = await fetchFilteredMovies(
+      genres || "",
+      selectedYear.id === null ? "" : selectedYear.id
+    );
+    if (data && data.results) setFilteredMovies(data.results);
   }
 
   async function getMovieGenres() {
@@ -175,10 +169,6 @@ export default MoviesScreen = () => {
             }}
           />
         </View>
-
-        <PosterList title="Now in Theatres" data={nowPlayingMovies} />
-        <PosterList title="Trending" data={trendingMovies} />
-        <PosterList title="Top Rated" data={topRatedMovies} />
       </ScrollView>
     </View>
   );

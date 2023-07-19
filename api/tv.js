@@ -5,6 +5,7 @@ const baseEndpoint = "https://api.themoviedb.org/3";
 const trendingTVsEndpoint = `${baseEndpoint}/trending/tv/day?api_key=${ApiKey}`;
 const topRatedTVsEndpoint = `${baseEndpoint}/tv/top_rated?api_key=${ApiKey}`;
 const airingTodayTVsEndpoint = `${baseEndpoint}/tv/airing_today?api_key=${ApiKey}`;
+const TVGenresEndpoint = `${baseEndpoint}/genre/tv/list?api_key=${ApiKey}`;
 
 const tvDetailsEndpoint = (id) => `${baseEndpoint}/tv/${id}?api_key=${ApiKey}`;
 const tvCreditsEndpoint = (id) =>
@@ -19,6 +20,8 @@ const searchTVsEndpoint = (query) =>
   `${baseEndpoint}/search/tv?query=${query}&include_adult=true&language=en-US&page=1&api_key=${ApiKey}`;
 const tvBannerImagesEndpoint = (id) =>
   `${baseEndpoint}/tv/${id}/images'?api_key=${ApiKey}`;
+const filteredTVsEndpoint = (genres = "", year = "") =>
+  `${baseEndpoint}/discover/tv?first_air_date_year=${year}&with_genres=${genres}&api_key=${ApiKey}`;
 
 async function apiCall(endpoint, params) {
   const options = {
@@ -48,6 +51,10 @@ export function fetchAiringTodayTVs() {
   return apiCall(airingTodayTVsEndpoint);
 }
 
+export function fetchTVGenres() {
+  return apiCall(TVGenresEndpoint);
+}
+
 export function fetchTVDetails(id) {
   return apiCall(tvDetailsEndpoint(id));
 }
@@ -74,4 +81,8 @@ export function fetchSearchedTVs(query) {
 
 export function fetchTVBannerImages(id) {
   return apiCall(tvBannerImagesEndpoint(id));
+}
+
+export function fetchFilteredTVs(genres, year) {
+  return apiCall(filteredTVsEndpoint(genres, year));
 }

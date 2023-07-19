@@ -3,6 +3,7 @@ import HomeStack from "./HomeStack";
 import { primaryTheme } from "../themes/primary";
 import MoviesScreen from "../screens/MoviesScreen";
 import MoviesStack from "./MoviesStack";
+import TVsStack from "./TVsStack";
 
 const Drawer = createDrawerNavigator();
 
@@ -22,6 +23,7 @@ export function AppNavigation() {
     >
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Movies" component={MoviesStack} />
+      <Drawer.Screen name="TV Shows" component={TVsStack} />
     </Drawer.Navigator>
   );
 }

@@ -84,7 +84,7 @@ export default HomeScreen = () => {
           <Bars3BottomLeftIcon color={"white"} size={30} />
         </TouchableOpacity>
         <Text className="text-3xl font-semibold" style={primaryStyles.text}>
-          Streamify
+          MovieVault
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Search")}>
           <MagnifyingGlassIcon color={"white"} size={25} strokeWidth={1.7} />

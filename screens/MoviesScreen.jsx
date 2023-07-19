@@ -14,13 +14,7 @@ import {
   MagnifyingGlassIcon,
 } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
-import {
-  fetchFilteredMovies,
-  fetchMovieGenres,
-  fetchNowPlayingMovies,
-  fetchTopRatedMovies,
-  fetchTrendingMovies,
-} from "../api/movies";
+import { fetchFilteredMovies, fetchMovieGenres } from "../api/movies";
 import { useEffect, useState } from "react";
 import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import { StyleSheet } from "react-native";

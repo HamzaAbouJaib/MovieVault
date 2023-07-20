@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a mobile movie application build using the [TMDB](https://www.themoviedb.org/?language=en-CA) API. The app is build using Expo, React Native and NativeWind.
+This project is a mobile movie application build using the [TMDB](https://www.themoviedb.org/?language=en-CA) API. The app is build using Expo, React Native and NativeWind. This product uses the TMDB API but is not endorsed or certified by TMDB.
 
 ## Technologies Used
 

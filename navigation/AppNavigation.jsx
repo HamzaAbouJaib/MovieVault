@@ -5,6 +5,7 @@ import MoviesScreen from "../screens/MoviesScreen";
 import MoviesStack from "./MoviesStack";
 import TVsStack from "./TVsStack";
 import AboutScreen from "../screens/AboutScreen";
+import Favourites from "../screens/Favourites";
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +26,7 @@ export function AppNavigation() {
       <Drawer.Screen name="Home" component={HomeStack} />
       <Drawer.Screen name="Movies" component={MoviesStack} />
       <Drawer.Screen name="TV Shows" component={TVsStack} />
+      <Drawer.Screen name="Favourites" component={Favourites} />
       <Drawer.Screen name="About" component={AboutScreen} />
     </Drawer.Navigator>
   );

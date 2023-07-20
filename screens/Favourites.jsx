@@ -6,23 +6,34 @@ import FavouritesContext from "../store/Favourites";
 import { useContext, useEffect, useState } from "react";
 import { fetchMovieDetails } from "../api/movies";
 import PosterList from "../components/PosterList";
+import { fetchTVDetails } from "../api/tv";
 
 export default Favourites = () => {
-  const { favouriteMovies } = useContext(FavouritesContext);
+  const { favouriteMovies, favouriteTVs } = useContext(FavouritesContext);
 
   const [movies, setMovies] = useState([]);
+  const [TVs, setTVs] = useState([]);
 
   const navigation = useNavigation();
 
   useEffect(() => {
     getMovies(favouriteMovies);
-  }, [favouriteMovies]);
+    getTVs(favouriteTVs);
+  }, [favouriteMovies, favouriteTVs]);
 
   async function getMovies(ids) {
     setMovies([]);
     for (const id of ids) {
       const data = await fetchMovieDetails(id);
       if (data) setMovies((prev) => [...prev, data]);
+    }
+  }
+
+  async function getTVs(ids) {
+    setTVs([]);
+    for (const id of ids) {
+      const data = await fetchTVDetails(id);
+      if (data) setTVs((prev) => [...prev, data]);
     }
   }
 
@@ -48,8 +59,18 @@ export default Favourites = () => {
       ) : (
         <View className="ml-5">
           <Text className="text-white font-semibold text-lg">Movies</Text>
-          <Text className="text-white text-base">
+          <Text className="text-neutral-300">
             You have no favourited movies
+          </Text>
+        </View>
+      )}
+      {TVs && TVs.length > 0 ? (
+        <PosterList title="TV Shows" data={TVs} />
+      ) : (
+        <View className="ml-5">
+          <Text className="text-white font-semibold text-lg">TV Shows</Text>
+          <Text className="text-neutral-300">
+            You have no favourited TV shows
           </Text>
         </View>
       )}

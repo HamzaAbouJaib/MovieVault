@@ -3,16 +3,17 @@ import MoviesScreen from "../screens/MoviesScreen";
 import MovieDetailScreen from "../screens/MovieDetailScreen";
 import TVDetailScreen from "../screens/TVDetailScreen";
 import PersonDetailScreen from "../screens/PersonDetailScreen";
+import Favourites from "../screens/Favourites";
 
 const Stack = createNativeStackNavigator();
 
-export default function MoviesStack() {
+export default function FavouriteStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="MoviesMain"
+        name="FavouritesMain"
         options={{ headerShown: false }}
-        component={MoviesScreen}
+        component={Favourites}
       />
       <Stack.Screen
         name="MovieDetails"

@@ -1,10 +1,11 @@
-
 # MovieVault - Movie App
 
 ## Overview
+
 This project is a mobile movie application build using the [TMDB](https://www.themoviedb.org/?language=en-CA) API. The app is build using Expo, React Native and NativeWind.
 
 ## Technologies Used
+
 - JavaScript
 - React Native
 - NativeWind
@@ -12,17 +13,22 @@ This project is a mobile movie application build using the [TMDB](https://www.th
 - Axios
 
 ## Features
+
 - Browse a list of upcoming and trending movies/tv shows.
 - Search for specific movies/tv shows using keywords.
 - View detailed information about each movie/tv show, such as title, release date, rating, cast and synopsis.
+- Save favourite movies, tv shows or cast for easy access.
 
 ## Prerequisites
-Before using the app, make sure you have the following installed on your development machine:  
+
+Before using the app, make sure you have the following installed on your development machine:
+
 - Node.js (https://nodejs.org)
 - Expo CLI (Install using npm install -g expo-cli)
 
 ## Usage
-1. Clone the repository to your local machine:  
+
+1. Clone the repository to your local machine:
    ```bash
    git clone https://github.com/HamzaAbouJaib/MovieVault.git
    cd movie-app
@@ -44,7 +50,9 @@ Before using the app, make sure you have the following installed on your develop
    ```
 
 ## Contributing
+
 Contributions are welcome! If you have any suggestions, bug fixes, or new features to add, please open an issue or submit a pull request.
 
 ## License
+
 This project is licensed under the [MIT License](LICENSE).

@@ -1,25 +1,40 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { Bars3BottomLeftIcon } from "react-native-heroicons/outline";
 import { primaryStyles } from "../themes/primary";
 import FavouritesContext from "../store/Favourites";
 import { useContext, useEffect, useState } from "react";
-import { fetchMovieDetails } from "../api/movies";
+import { fetchMovieDetails, fetchPersonDetails } from "../api/movies";
 import PosterList from "../components/PosterList";
 import { fetchTVDetails } from "../api/tv";
+import { fallbackPersonImage, image185 } from "../api/shared";
+import { Image } from "react-native";
+
+const { width, height } = Dimensions.get("window");
 
 export default Favourites = () => {
-  const { favouriteMovies, favouriteTVs } = useContext(FavouritesContext);
+  const { favouriteMovies, favouriteTVs, favouritePeople } =
+    useContext(FavouritesContext);
 
   const [movies, setMovies] = useState([]);
   const [TVs, setTVs] = useState([]);
+  const [people, setPeople] = useState([]);
 
   const navigation = useNavigation();
 
   useEffect(() => {
     getMovies(favouriteMovies);
     getTVs(favouriteTVs);
-  }, [favouriteMovies, favouriteTVs]);
+    getPeople(favouritePeople);
+  }, [favouriteMovies, favouriteTVs, favouritePeople]);
 
   async function getMovies(ids) {
     setMovies([]);
@@ -34,6 +49,14 @@ export default Favourites = () => {
     for (const id of ids) {
       const data = await fetchTVDetails(id);
       if (data) setTVs((prev) => [...prev, data]);
+    }
+  }
+
+  async function getPeople(ids) {
+    setPeople([]);
+    for (const id of ids) {
+      const data = await fetchPersonDetails(id);
+      if (data) setPeople((prev) => [...prev, data]);
     }
   }
 
@@ -59,7 +82,7 @@ export default Favourites = () => {
       ) : (
         <View className="ml-5">
           <Text className="text-white font-semibold text-lg">Movies</Text>
-          <Text className="text-neutral-300">
+          <Text className="text-neutral-300 mb-5">
             You have no favourited movies
           </Text>
         </View>
@@ -69,11 +92,52 @@ export default Favourites = () => {
       ) : (
         <View className="ml-5">
           <Text className="text-white font-semibold text-lg">TV Shows</Text>
-          <Text className="text-neutral-300">
+          <Text className="text-neutral-300 mb-5">
             You have no favourited TV shows
           </Text>
         </View>
       )}
+      <View className="ml-5 mb-5">
+        <Text className="text-white font-semibold text-lg">Cast</Text>
+        {people && people.length > 0 ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingTop: 12 }}
+          >
+            {people.map((item, index) => (
+              <TouchableWithoutFeedback
+                key={index}
+                onPress={() => {
+                  navigation.push("PersonDetails", item);
+                }}
+              >
+                <View className="space-y-1 mr-4">
+                  <Image
+                    source={{
+                      uri: image185(item.profile_path) || fallbackPersonImage,
+                    }}
+                    style={{
+                      width: width * 0.3,
+                      height: height * 0.2,
+                      borderRadius: 8,
+                    }}
+                  />
+                  <Text className="text-neutral-300 ml-1">
+                    {item.name.length > 15
+                      ? item.name.slice(0, 15) + "..."
+                      : item.name}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
+          </ScrollView>
+        ) : (
+          <Text className="text-neutral-300">
+            You have no favourited cast members
+          </Text>
+        )}
+      </View>
     </View>
   );
 };

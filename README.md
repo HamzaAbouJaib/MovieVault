@@ -49,6 +49,13 @@ Before using the app, make sure you have the following installed on your develop
    expo start
    ```
 
+## Images
+
+![image 1](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-1.png)
+![image 2](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-2.png)
+![image 3](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-3.png)
+![image 4](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-4.png)
+
 ## Contributing
 
 Contributions are welcome! If you have any suggestions, bug fixes, or new features to add, please open an issue or submit a pull request.

@@ -50,11 +50,10 @@ Before using the app, make sure you have the following installed on your develop
    ```
 
 ## Images
-
-![image 1](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-1.png)
-![image 2](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-2.png)
-![image 3](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-3.png)
-![image 4](https://github.com/HamzaAbouJaib/MovieVault/readme-images/movievault-4.png)
+<img src="./readme-images/movievault-1.png" width="800" />
+<img src="./readme-images/movievault-2.png" width="800" />
+<img src="./readme-images/movievault-3.png" width="800" />
+<img src="./readme-images/movievault-4.png" width="800" />
 
 ## Contributing
 
